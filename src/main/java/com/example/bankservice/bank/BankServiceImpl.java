@@ -25,17 +25,35 @@ public class BankServiceImpl implements BankService {
     @Override
     @Transactional
     public BankEntity createBank(String name, double transactionFlatFeeAmount, double transactionPercentFeeValue) {
+        if (!isValidAmount(transactionFlatFeeAmount) || !isValidAmount(transactionPercentFeeValue)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid value for transactionFlatFeeAmount or transactionPercentFeeValue");
+        }
+
         BankEntity bankEntity = new BankEntity();
         bankEntity.setName(name);
         bankEntity.setTransactionFlatFeeAmount(transactionFlatFeeAmount);
         bankEntity.setTransactionPercentFeeValue(transactionPercentFeeValue);
-
         bankEntity.setCreatedAt(LocalDateTime.now());
         bankEntity.setCreatedBy(1L);
         bankEntity.setUpdatedAt(LocalDateTime.now());
         bankEntity.setUpdatedBy(1L);
 
         return bankRepository.save(bankEntity);
+    }
+
+    private boolean isValidAmount(double amount) {
+        // Convert the amount to string to check the decimal part
+        String amountString = String.valueOf(amount);
+
+        // Split the amount into integer and decimal parts
+        String[] parts = amountString.split("\\.");
+
+        // Check if the decimal part exists and has more than two digits
+        if (parts.length > 1 && parts[1].length() > 2) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -58,7 +76,7 @@ public class BankServiceImpl implements BankService {
         if (optionalBank.isPresent()) {
             return optionalBank.get().getTotalTransactionFeeAmount();
         } else {
-            throw new RuntimeException("Bank not found with ID: " + bankId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank not found with ID: " + bankId);
         }
     }
 
@@ -68,7 +86,7 @@ public class BankServiceImpl implements BankService {
         if (optionalBank.isPresent()) {
             return optionalBank.get().getTotalTransferAmount();
         } else {
-            throw new RuntimeException("Bank not found with ID: " + bankId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bank not found with ID: " + bankId);
         }
     }
 }

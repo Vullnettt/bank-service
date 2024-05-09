@@ -136,7 +136,7 @@ public class TransactionServiceImpl implements TransactionService {
             return transactionDtos;
 
         } else {
-            throw new RuntimeException("Account not found with ID: " + accountId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found with ID: " + accountId);
         }
     }
 }
