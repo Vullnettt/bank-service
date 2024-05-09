@@ -1,13 +1,13 @@
-package com.example.bankservice.accounts.utils;
+package com.example.bankservice.transaction.mapper;
 
-import com.example.bankservice.accounts.AccountDto;
-import com.example.bankservice.accounts.AccountEntity;
+import com.example.bankservice.transaction.Transaction;
+import com.example.bankservice.transaction.TransactionDto;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AccountMapper {
+public class TransactionMapper {
 
-    public void mapDtoToEntity(AccountDto source, AccountEntity target) {
+    public void mapDtoToEntity(TransactionDto source, Transaction target) {
         if(source == null){
             return;
         }
@@ -15,11 +15,11 @@ public class AccountMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getUsername() != null){
-            target.setUsername(source.getUsername());
+        if(source.getAmount() > 0){
+            target.setAmount(source.getAmount());
         }
-        if(source.getAccountBalance() != null){
-            target.setAccountBalance(source.getAccountBalance());
+        if(source.getTransactionReason() != null){
+            target.setTransactionReason(source.getTransactionReason());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());
@@ -41,7 +41,7 @@ public class AccountMapper {
         }
     }
 
-    public void mapEntityToDto(AccountEntity source, AccountDto target) {
+    public void mapEntityToDto(Transaction source, TransactionDto target) {
         if(source == null){
             return;
         }
@@ -49,11 +49,20 @@ public class AccountMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getUsername() != null){
-            target.setUsername(source.getUsername());
+        if(source.getAmount() > 0){
+            target.setAmount(source.getAmount());
         }
-        if(source.getAccountBalance() != null){
-            target.setAccountBalance(source.getAccountBalance());
+        if(source.getOriginatingAccount() != null){
+            target.setOriginatingAccountId(source.getOriginatingAccount().getId());
+        }
+        if(source.getResultingAccount() != null){
+            target.setResultingAccountId(source.getResultingAccount().getId());
+        }
+        if(source.getTransactionReason() != null){
+            target.setTransactionReason(source.getTransactionReason());
+        }
+        if(source.getTransactionReason() != null){
+            target.setTransactionReason(source.getTransactionReason());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());

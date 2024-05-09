@@ -1,35 +1,39 @@
-package com.example.bankservice.transactions;
+package com.example.bankservice.transaction;
 
 import com.example.bankservice.commons.BaseDto;
 
+import java.util.Date;
+
 public class TransactionDto extends BaseDto {
 
-    private String amount;
-    private String originatingAccountId;
-    private String resultingAccountId;
+    private double amount;
+
+    private Long originatingAccountId;
+    private Long resultingAccountId;
+
     private String transactionReason;
 
-    public String getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public String getOriginatingAccountId() {
+    public Long getOriginatingAccountId() {
         return originatingAccountId;
     }
 
-    public void setOriginatingAccountId(String originatingAccountId) {
+    public void setOriginatingAccountId(Long originatingAccountId) {
         this.originatingAccountId = originatingAccountId;
     }
 
-    public String getResultingAccountId() {
+    public Long getResultingAccountId() {
         return resultingAccountId;
     }
 
-    public void setResultingAccountId(String resultingAccountId) {
+    public void setResultingAccountId(Long resultingAccountId) {
         this.resultingAccountId = resultingAccountId;
     }
 

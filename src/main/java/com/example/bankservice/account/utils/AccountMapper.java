@@ -1,13 +1,12 @@
-package com.example.bankservice.transactions.utils;
-
-import com.example.bankservice.transactions.TransactionDto;
-import com.example.bankservice.transactions.TransactionEntity;
+package com.example.bankservice.account.utils;
+import com.example.bankservice.account.AccountEntity;
+import com.example.bankservice.account.AccountDto;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TransactionMapper {
+public class AccountMapper {
 
-    public void mapDtoToEntity(TransactionDto source, TransactionEntity target) {
+    public void mapDtoToEntity(AccountDto source, AccountEntity target) {
         if(source == null){
             return;
         }
@@ -15,17 +14,17 @@ public class TransactionMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getAmount() != null){
-            target.setAmount(source.getAmount());
+        if(source.getName() != null){
+            target.setName(source.getName());
         }
-        if(source.getOriginatingAccountId() != null){
-            target.setOriginatingAccountId(source.getOriginatingAccountId());
+        if(source.getBalance() > 0){
+            target.setBalance(source.getBalance());
         }
-        if(source.getResultingAccountId() != null){
-            target.setResultingAccountId(source.getResultingAccountId());
+        if(source.getOutgoingTransactions() != null){
+            target.setOutgoingTransactions(source.getOutgoingTransactions());
         }
-        if(source.getTransactionReason() != null){
-            target.setTransactionReason(source.getTransactionReason());
+        if(source.getIncomingTransactions() != null){
+            target.setIncomingTransactions(source.getIncomingTransactions());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());
@@ -47,7 +46,7 @@ public class TransactionMapper {
         }
     }
 
-    public void mapEntityToDto(TransactionEntity source, TransactionDto target) {
+    public void mapEntityToDto(AccountEntity source, AccountDto target) {
         if(source == null){
             return;
         }
@@ -55,17 +54,20 @@ public class TransactionMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getAmount() != null){
-            target.setAmount(source.getAmount());
+        if(source.getName() != null){
+            target.setName(source.getName());
         }
-        if(source.getOriginatingAccountId() != null){
-            target.setOriginatingAccountId(source.getOriginatingAccountId());
+        if(source.getBalance() > 0){
+            target.setBalance(source.getBalance());
         }
-        if(source.getResultingAccountId() != null){
-            target.setResultingAccountId(source.getResultingAccountId());
+        if(source.getBank() != null){
+            target.setBankId(source.getBank().getId());
         }
-        if(source.getTransactionReason() != null){
-            target.setTransactionReason(source.getTransactionReason());
+        if(source.getOutgoingTransactions() != null){
+            target.setOutgoingTransactions(source.getOutgoingTransactions());
+        }
+        if(source.getIncomingTransactions() != null){
+            target.setIncomingTransactions(source.getIncomingTransactions());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());

@@ -1,13 +1,13 @@
-package com.example.bankservice.banks.utils;
+package com.example.bankservice.bank.utils;
 
-import com.example.bankservice.banks.BankDto;
-import com.example.bankservice.banks.BankEntity;
+import com.example.bankservice.bank.Bank;
+import com.example.bankservice.bank.BankDto;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BankMapper {
 
-    public void mapDtoToEntity(BankDto source, BankEntity target) {
+    public void mapDtoToEntity(BankDto source, Bank target) {
         if(source == null){
             return;
         }
@@ -15,17 +15,23 @@ public class BankMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getTotalTransactionFee() != null){
-            target.setTotalTransactionFee(source.getTotalTransactionFee());
+        if(source.getName() != null){
+            target.setName(source.getName());
         }
-        if(source.getTotalTransactionAmount() != null){
-            target.setTotalTransactionAmount(source.getTotalTransactionAmount());
+        if(source.getAccountEntities() != null){
+            target.setAccounts(source.getAccountEntities());
         }
-        if(source.getTransactionFlatFee() != null){
-            target.setTransactionFlatFee(source.getTransactionFlatFee());
+        if(source.getTotalTransactionFeeAmount() > 0){
+            target.setTransactionFlatFeeAmount(source.getTotalTransactionFeeAmount());
         }
-        if(source.getTransactionPercentFee() != null){
-            target.setTransactionPercentFee(source.getTransactionPercentFee());
+        if(source.getTotalTransferAmount() > 0){
+            target.setTotalTransferAmount(source.getTotalTransferAmount());
+        }
+        if(source.getTransactionFlatFeeAmount() > 0){
+            target.setTransactionFlatFeeAmount(source.getTransactionFlatFeeAmount());
+        }
+        if(source.getTransactionPercentFeeValue() > 0){
+            target.setTransactionPercentFeeValue(source.getTransactionPercentFeeValue());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());
@@ -47,7 +53,7 @@ public class BankMapper {
         }
     }
 
-    public void mapEntityToDto(BankEntity source, BankDto target) {
+    public void mapEntityToDto(Bank source, BankDto target) {
         if(source == null){
             return;
         }
@@ -55,17 +61,23 @@ public class BankMapper {
         if(source.getId() != null){
             target.setId(source.getId());
         }
-        if(source.getTotalTransactionFee() != null){
-            target.setTotalTransactionFee(source.getTotalTransactionFee());
+        if(source.getName() != null){
+            target.setName(source.getName());
         }
-        if(source.getTotalTransactionAmount() != null){
-            target.setTotalTransactionAmount(source.getTotalTransactionAmount());
+        if(source.getAccounts() != null){
+            target.setAccountEntities(source.getAccounts());
         }
-        if(source.getTransactionFlatFee() != null){
-            target.setTransactionFlatFee(source.getTransactionFlatFee());
+        if(source.getTotalTransactionFeeAmount() > 0){
+            target.setTransactionFlatFeeAmount(source.getTotalTransactionFeeAmount());
         }
-        if(source.getTransactionPercentFee() != null){
-            target.setTransactionPercentFee(source.getTransactionPercentFee());
+        if(source.getTotalTransferAmount() > 0){
+            target.setTotalTransferAmount(source.getTotalTransferAmount());
+        }
+        if(source.getTransactionFlatFeeAmount() > 0){
+            target.setTransactionFlatFeeAmount(source.getTransactionFlatFeeAmount());
+        }
+        if(source.getTransactionPercentFeeValue() > 0){
+            target.setTransactionPercentFeeValue(source.getTransactionPercentFeeValue());
         }
         if (source.getCreatedAt() != null) {
             target.setCreatedAt(source.getCreatedAt());

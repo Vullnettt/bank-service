@@ -1,12 +1,11 @@
 package com.example.bankservice.commons;
 
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BaseDto {
 
-    private UUID id;
+    private Long id;
 
     private LocalDateTime createdAt;
     private Long createdBy;
@@ -15,11 +14,11 @@ public class BaseDto {
     private LocalDateTime  deletedAt;
     private Long deletedBy;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

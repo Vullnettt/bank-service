@@ -1,6 +1,9 @@
 package com.example.bankservice.commons;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -9,32 +12,21 @@ import java.util.UUID;
 public class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
-    @Column(name = "created_by")
     private Long createdBy;
-
-    @Column(name = "updated_at")
     private LocalDateTime  updatedAt;
-
-    @Column(name = "updated_by")
     private Long updatedBy;
-
-    @Column(name = "deleted_at")
     private LocalDateTime  deletedAt;
-
-    @Column(name = "deleted_by")
     private Long deletedBy;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
