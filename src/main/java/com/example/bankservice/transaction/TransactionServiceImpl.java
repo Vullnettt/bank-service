@@ -40,7 +40,7 @@ public class TransactionServiceImpl implements TransactionService {
         if(originatingAccountId == resultingAccountId){
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT,
-                    "You cannot send and accept transfers!");
+                    "You cannot send and accept transfers in same bank account!");
         }
         if (!isValidAmount(amount)) {
             throw new ResponseStatusException

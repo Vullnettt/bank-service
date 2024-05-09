@@ -7,11 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/banks")
-@Tag(name = "Bank Service API")
+@Tag(name = "API Endpoints for Banks")
 public class BankController {
 
 
@@ -22,6 +23,7 @@ public class BankController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a Bank Account", description = "This API presenting name as String, transaction flat fee amount and transaction percent fee value with 2 decimals as double in query params" +
             " enables to be saved in h2 in-memory database a bank account.")
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "When bank is created successfully",
@@ -33,6 +35,7 @@ public class BankController {
     }
 
     @GetMapping("/{bankId}/total-transaction-fee")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get Total Transaction Fee Amount of Bank Account", description = "This API enables by presenting bank id as Long in path, will display sum of transaction fee")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "When total transaction fee amount of bank account is founded successfully status 200 is showed",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BankDto.class))}),
@@ -43,6 +46,7 @@ public class BankController {
     }
 
     @GetMapping("/{bankId}/total-transfer-amount")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get Total Transfer Amount of Bank Account", description = "This API enables by presenting bank id as Long in path, will display sum of transfer")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "When total transfer amount of bank account is founded successfully status 200 is showed",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BankDto.class))}),
