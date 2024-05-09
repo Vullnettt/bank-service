@@ -1,13 +1,13 @@
 package com.example.bankservice.bank.utils;
 
-import com.example.bankservice.bank.Bank;
+import com.example.bankservice.bank.BankEntity;
 import com.example.bankservice.bank.BankDto;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BankMapper {
 
-    public void mapDtoToEntity(BankDto source, Bank target) {
+    public void mapDtoToEntity(BankDto source, BankEntity target) {
         if(source == null){
             return;
         }
@@ -53,7 +53,7 @@ public class BankMapper {
         }
     }
 
-    public void mapEntityToDto(Bank source, BankDto target) {
+    public void mapEntityToDto(BankEntity source, BankDto target) {
         if(source == null){
             return;
         }

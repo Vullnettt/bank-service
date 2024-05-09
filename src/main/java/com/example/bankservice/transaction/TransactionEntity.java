@@ -5,22 +5,21 @@ import com.example.bankservice.commons.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
-public class Transaction extends BaseEntity {
+@Table(name = "transactions")
+public class TransactionEntity extends BaseEntity {
 
     private double amount;
 
     @ManyToOne
     @JoinColumn(name = "originating_account_id")
     @JsonIgnore
-    private AccountEntity originatingAccount;
+    private AccountEntity originatingAccountEntity;
 
     @ManyToOne
     @JoinColumn(name = "resulting_account_id")
     @JsonIgnore
-    private AccountEntity resultingAccount;
+    private AccountEntity resultingAccountEntity;
 
     private String transactionReason;
 
@@ -32,20 +31,20 @@ public class Transaction extends BaseEntity {
         this.amount = amount;
     }
 
-    public AccountEntity getOriginatingAccount() {
-        return originatingAccount;
+    public AccountEntity getOriginatingAccountEntity() {
+        return originatingAccountEntity;
     }
 
-    public void setOriginatingAccount(AccountEntity originatingAccountEntity) {
-        this.originatingAccount = originatingAccountEntity;
+    public void setOriginatingAccountEntity(AccountEntity originatingAccountEntity) {
+        this.originatingAccountEntity = originatingAccountEntity;
     }
 
-    public AccountEntity getResultingAccount() {
-        return resultingAccount;
+    public AccountEntity getResultingAccountEntity() {
+        return resultingAccountEntity;
     }
 
-    public void setResultingAccount(AccountEntity resultingAccountEntity) {
-        this.resultingAccount = resultingAccountEntity;
+    public void setResultingAccountEntity(AccountEntity resultingAccountEntity) {
+        this.resultingAccountEntity = resultingAccountEntity;
     }
 
     public String getTransactionReason() {

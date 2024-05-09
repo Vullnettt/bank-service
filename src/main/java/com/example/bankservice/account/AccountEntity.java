@@ -1,8 +1,8 @@
 package com.example.bankservice.account;
 
-import com.example.bankservice.bank.Bank;
+import com.example.bankservice.bank.BankEntity;
 import com.example.bankservice.commons.BaseEntity;
-import com.example.bankservice.transaction.Transaction;
+import com.example.bankservice.transaction.TransactionEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "accounts")
 public class AccountEntity extends BaseEntity {
 
     private String name;
@@ -17,13 +18,13 @@ public class AccountEntity extends BaseEntity {
 
     @ManyToOne
     @JsonIgnore
-    private Bank bank;
+    private BankEntity bankEntity;
 
-    @OneToMany(mappedBy = "originatingAccount", cascade = CascadeType.ALL)
-    private List<Transaction> outgoingTransactions = new ArrayList<>();
+    @OneToMany(mappedBy = "originatingAccountEntity", cascade = CascadeType.ALL)
+    private List<TransactionEntity> outgoingTransactionEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resultingAccount", cascade = CascadeType.ALL)
-    private List<Transaction> incomingTransactions = new ArrayList<>();
+    @OneToMany(mappedBy = "resultingAccountEntity", cascade = CascadeType.ALL)
+    private List<TransactionEntity> incomingTransactionEntities = new ArrayList<>();
 
 
     public String getName() {
@@ -42,27 +43,27 @@ public class AccountEntity extends BaseEntity {
         this.balance = balance;
     }
 
-    public Bank getBank() {
-        return bank;
+    public BankEntity getBank() {
+        return bankEntity;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setBank(BankEntity bankEntity) {
+        this.bankEntity = bankEntity;
     }
 
-    public List<Transaction> getOutgoingTransactions() {
-        return outgoingTransactions;
+    public List<TransactionEntity> getOutgoingTransactions() {
+        return outgoingTransactionEntities;
     }
 
-    public void setOutgoingTransactions(List<Transaction> outgoingTransactions) {
-        this.outgoingTransactions = outgoingTransactions;
+    public void setOutgoingTransactions(List<TransactionEntity> outgoingTransactionEntities) {
+        this.outgoingTransactionEntities = outgoingTransactionEntities;
     }
 
-    public List<Transaction> getIncomingTransactions() {
-        return incomingTransactions;
+    public List<TransactionEntity> getIncomingTransactions() {
+        return incomingTransactionEntities;
     }
 
-    public void setIncomingTransactions(List<Transaction> incomingTransactions) {
-        this.incomingTransactions = incomingTransactions;
+    public void setIncomingTransactions(List<TransactionEntity> incomingTransactionEntities) {
+        this.incomingTransactionEntities = incomingTransactionEntities;
     }
 }

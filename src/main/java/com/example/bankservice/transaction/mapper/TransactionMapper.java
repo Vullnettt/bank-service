@@ -1,13 +1,13 @@
 package com.example.bankservice.transaction.mapper;
 
-import com.example.bankservice.transaction.Transaction;
+import com.example.bankservice.transaction.TransactionEntity;
 import com.example.bankservice.transaction.TransactionDto;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class TransactionMapper {
 
-    public void mapDtoToEntity(TransactionDto source, Transaction target) {
+    public void mapDtoToEntity(TransactionDto source, TransactionEntity target) {
         if(source == null){
             return;
         }
@@ -41,7 +41,7 @@ public class TransactionMapper {
         }
     }
 
-    public void mapEntityToDto(Transaction source, TransactionDto target) {
+    public void mapEntityToDto(TransactionEntity source, TransactionDto target) {
         if(source == null){
             return;
         }
@@ -52,11 +52,11 @@ public class TransactionMapper {
         if(source.getAmount() > 0){
             target.setAmount(source.getAmount());
         }
-        if(source.getOriginatingAccount() != null){
-            target.setOriginatingAccountId(source.getOriginatingAccount().getId());
+        if(source.getOriginatingAccountEntity() != null){
+            target.setOriginatingAccountId(source.getOriginatingAccountEntity().getId());
         }
-        if(source.getResultingAccount() != null){
-            target.setResultingAccountId(source.getResultingAccount().getId());
+        if(source.getResultingAccountEntity() != null){
+            target.setResultingAccountId(source.getResultingAccountEntity().getId());
         }
         if(source.getTransactionReason() != null){
             target.setTransactionReason(source.getTransactionReason());

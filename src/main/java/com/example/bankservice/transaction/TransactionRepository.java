@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByOriginatingAccount_IdOrResultingAccount_Id(Long originatingAccountId, Long resultingAccountId);
+public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
+    List<TransactionEntity> findByOriginatingAccountEntityIdOrResultingAccountEntityId(Long originatingAccountId, Long resultingAccountId);
 }

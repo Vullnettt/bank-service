@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Bank extends BaseEntity {
+@Table(name = "banks")
+public class BankEntity extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bankEntity", cascade = CascadeType.ALL)
     private List<AccountEntity> accountEntities = new ArrayList<>();
 
     private double totalTransactionFeeAmount;

@@ -1,7 +1,7 @@
 package com.example.bankservice.account;
 
 import com.example.bankservice.account.utils.AccountMapper;
-import com.example.bankservice.bank.Bank;
+import com.example.bankservice.bank.BankEntity;
 import com.example.bankservice.bank.BankDto;
 import com.example.bankservice.bank.BankService;
 import com.example.bankservice.bank.utils.BankMapper;
@@ -36,21 +36,21 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto createAccount(Long bankId, AccountDto accountDto) {
         BankDto bankDto = bankService.findById(bankId);
-        Bank bank = new Bank();
-        bankMapper.mapDtoToEntity(bankDto, bank);
+        BankEntity bankEntity = new BankEntity();
+        bankMapper.mapDtoToEntity(bankDto, bankEntity);
 
         AccountEntity accountEntity = new AccountEntity();
 
         accountMapper.mapDtoToEntity(accountDto, accountEntity);
 
-        accountEntity.setBank(bank);
+        accountEntity.setBank(bankEntity);
 
         accountEntity.setCreatedAt(LocalDateTime.now());
         accountEntity.setCreatedBy(1L);
         accountEntity.setUpdatedAt(LocalDateTime.now());
         accountEntity.setUpdatedBy(1L);
 
-        bank.getAccounts().add(accountEntity);
+        bankEntity.getAccounts().add(accountEntity);
 
         accountRepository.save(accountEntity);
 

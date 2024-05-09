@@ -1,19 +1,13 @@
 package com.example.bankservice.bank;
 
 // BankService.java
-import com.example.bankservice.account.AccountEntity;
-import com.example.bankservice.account.AccountRepository;
 import com.example.bankservice.bank.utils.BankMapper;
-import com.example.bankservice.transaction.Transaction;
-import com.example.bankservice.transaction.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,37 +24,37 @@ public class BankServiceImpl implements BankService {
 
     @Override
     @Transactional
-    public Bank createBank(String name, double transactionFlatFeeAmount, double transactionPercentFeeValue) {
-        Bank bank = new Bank();
-        bank.setName(name);
-        bank.setTransactionFlatFeeAmount(transactionFlatFeeAmount);
-        bank.setTransactionPercentFeeValue(transactionPercentFeeValue);
+    public BankEntity createBank(String name, double transactionFlatFeeAmount, double transactionPercentFeeValue) {
+        BankEntity bankEntity = new BankEntity();
+        bankEntity.setName(name);
+        bankEntity.setTransactionFlatFeeAmount(transactionFlatFeeAmount);
+        bankEntity.setTransactionPercentFeeValue(transactionPercentFeeValue);
 
-        bank.setCreatedAt(LocalDateTime.now());
-        bank.setCreatedBy(1L);
-        bank.setUpdatedAt(LocalDateTime.now());
-        bank.setUpdatedBy(1L);
+        bankEntity.setCreatedAt(LocalDateTime.now());
+        bankEntity.setCreatedBy(1L);
+        bankEntity.setUpdatedAt(LocalDateTime.now());
+        bankEntity.setUpdatedBy(1L);
 
-        return bankRepository.save(bank);
+        return bankRepository.save(bankEntity);
     }
 
     @Override
     public BankDto findById(Long id) {
-        Bank bank = bankRepository.findById(id)
+        BankEntity bankEntity = bankRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Bank with id: " + id + " is not found!"
                 ));
 
         BankDto bankDto = new BankDto();
 
-        bankMapper.mapEntityToDto(bank, bankDto);
+        bankMapper.mapEntityToDto(bankEntity, bankDto);
 
         return bankDto;
     }
 
     @Override
     public double getBankTotalTransactionFeeAmount(Long bankId) {
-        Optional<Bank> optionalBank = bankRepository.findById(bankId);
+        Optional<BankEntity> optionalBank = bankRepository.findById(bankId);
         if (optionalBank.isPresent()) {
             return optionalBank.get().getTotalTransactionFeeAmount();
         } else {
@@ -70,7 +64,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public double getBankTotalTransferAmount(Long bankId) {
-        Optional<Bank> optionalBank = bankRepository.findById(bankId);
+        Optional<BankEntity> optionalBank = bankRepository.findById(bankId);
         if (optionalBank.isPresent()) {
             return optionalBank.get().getTotalTransferAmount();
         } else {

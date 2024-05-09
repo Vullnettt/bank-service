@@ -1,7 +1,7 @@
 package com.example.bankservice.account;
 
 import com.example.bankservice.commons.BaseDto;
-import com.example.bankservice.transaction.Transaction;
+import com.example.bankservice.transaction.TransactionEntity;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class AccountDto extends BaseDto {
 
     private Long bankId;
 
-    private List<Transaction> outgoingTransactions = new ArrayList<>();
+    private List<TransactionEntity> outgoingTransactionEntities = new ArrayList<>();
 
-    private List<Transaction> incomingTransactions = new ArrayList<>();
+    private List<TransactionEntity> incomingTransactionEntities = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -44,19 +44,19 @@ public class AccountDto extends BaseDto {
         this.bankId = bankId;
     }
 
-    public List<Transaction> getOutgoingTransactions() {
-        return outgoingTransactions;
+    public List<TransactionEntity> getOutgoingTransactions() {
+        return outgoingTransactionEntities;
     }
 
-    public void setOutgoingTransactions(List<Transaction> outgoingTransactions) {
-        this.outgoingTransactions = outgoingTransactions;
+    public void setOutgoingTransactions(List<TransactionEntity> outgoingTransactionEntities) {
+        this.outgoingTransactionEntities = outgoingTransactionEntities;
     }
 
-    public List<Transaction> getIncomingTransactions() {
-        return incomingTransactions;
+    public List<TransactionEntity> getIncomingTransactions() {
+        return incomingTransactionEntities;
     }
 
-    public void setIncomingTransactions(List<Transaction> incomingTransactions) {
-        this.incomingTransactions = incomingTransactions;
+    public void setIncomingTransactions(List<TransactionEntity> incomingTransactionEntities) {
+        this.incomingTransactionEntities = incomingTransactionEntities;
     }
 }

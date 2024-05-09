@@ -14,7 +14,7 @@ public class BankController {
     }
 
     @PostMapping("/banks")
-    public Bank createBank(@RequestParam String name, @RequestParam double transactionFlatFeeAmount, @RequestParam double transactionPercentFeeValue) {
+    public BankEntity createBank(@RequestParam String name, @RequestParam double transactionFlatFeeAmount, @RequestParam double transactionPercentFeeValue) {
         return bankService.createBank(name, transactionFlatFeeAmount, transactionPercentFeeValue);
     }
 

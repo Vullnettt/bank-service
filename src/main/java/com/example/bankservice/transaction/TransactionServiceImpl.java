@@ -2,10 +2,8 @@ package com.example.bankservice.transaction;
 
 import com.example.bankservice.account.AccountEntity;
 import com.example.bankservice.account.AccountRepository;
-import com.example.bankservice.account.AccountService;
-import com.example.bankservice.bank.Bank;
+import com.example.bankservice.bank.BankEntity;
 import com.example.bankservice.bank.BankRepository;
-import com.example.bankservice.bank.BankService;
 import com.example.bankservice.transaction.mapper.TransactionMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -66,31 +64,31 @@ public class TransactionServiceImpl implements TransactionService {
                 resultingAccountEntity.setBalance(resultingAccountEntity.getBalance() + amount);
 
                 // Create transaction
-                Transaction transaction = new Transaction();
-                transaction.setAmount(amount);
-                transaction.setOriginatingAccount(originatingAccountEntity);
-                transaction.setResultingAccount(resultingAccountEntity);
-                transaction.setTransactionReason(transactionReason);
+                TransactionEntity transactionEntity = new TransactionEntity();
+                transactionEntity.setAmount(amount);
+                transactionEntity.setOriginatingAccountEntity(originatingAccountEntity);
+                transactionEntity.setResultingAccountEntity(resultingAccountEntity);
+                transactionEntity.setTransactionReason(transactionReason);
 
-                transaction.setCreatedAt(LocalDateTime.now());
-                transaction.setCreatedBy(1L);
-                transaction.setUpdatedAt(LocalDateTime.now());
-                transaction.setUpdatedBy(1L);
+                transactionEntity.setCreatedAt(LocalDateTime.now());
+                transactionEntity.setCreatedBy(1L);
+                transactionEntity.setUpdatedAt(LocalDateTime.now());
+                transactionEntity.setUpdatedBy(1L);
 
-                transactionRepository.save(transaction);
+                transactionRepository.save(transactionEntity);
 
                 // Update accounts
                 accountRepository.save(originatingAccountEntity);
                 accountRepository.save(resultingAccountEntity);
 
                 // Update bank transaction details
-                Bank bank = originatingAccountEntity.getBank();
-                bank.setTotalTransactionFeeAmount(bank.getTotalTransactionFeeAmount() + transactionFee);
-                bank.setTotalTransferAmount(bank.getTotalTransferAmount() + amount);
-                bankRepository.save(bank);
+                BankEntity bankEntity = originatingAccountEntity.getBank();
+                bankEntity.setTotalTransactionFeeAmount(bankEntity.getTotalTransactionFeeAmount() + transactionFee);
+                bankEntity.setTotalTransferAmount(bankEntity.getTotalTransferAmount() + amount);
+                bankRepository.save(bankEntity);
 
                 TransactionDto transactionDto = new TransactionDto();
-                transactionMapper.mapEntityToDto(transaction, transactionDto);
+                transactionMapper.mapEntityToDto(transactionEntity, transactionDto);
 
                 return transactionDto;
             } else {
@@ -101,9 +99,9 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private double calculateTransactionFee(double amount, Bank bank) {
-        double flatFee = bank.getTransactionFlatFeeAmount();
-        double percentFee = (amount * bank.getTransactionPercentFeeValue()) / 100.0;
+    private double calculateTransactionFee(double amount, BankEntity bankEntity) {
+        double flatFee = bankEntity.getTransactionFlatFeeAmount();
+        double percentFee = (amount * bankEntity.getTransactionPercentFeeValue()) / 100.0;
         return Math.max(flatFee, percentFee);
     }
 
@@ -126,10 +124,10 @@ public class TransactionServiceImpl implements TransactionService {
     public List<TransactionDto> getTransactionsForAccount(Long accountId) {
         Optional<AccountEntity> optionalAccount = accountRepository.findById(accountId);
         if (optionalAccount.isPresent()) {
-            List<Transaction> transactions = transactionRepository.findByOriginatingAccount_IdOrResultingAccount_Id(accountId, accountId);
+            List<TransactionEntity> transactionEntities = transactionRepository.findByOriginatingAccountEntityIdOrResultingAccountEntityId(accountId, accountId);
             List<TransactionDto> transactionDtos = new ArrayList<>();
 
-            transactions.forEach(transaction -> {
+            transactionEntities.forEach(transaction -> {
                 TransactionDto transactionDto = new TransactionDto();
                 transactionMapper.mapEntityToDto(transaction, transactionDto);
                 transactionDtos.add(transactionDto);
