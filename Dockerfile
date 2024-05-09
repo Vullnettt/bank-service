@@ -8,7 +8,7 @@ RUN gradle clean build --no-daemon
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-COPY --from=build /app/build/libs/email-service-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/build/libs/bank-service-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
 
