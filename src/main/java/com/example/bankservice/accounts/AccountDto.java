@@ -5,7 +5,7 @@ import com.example.bankservice.commons.BaseDto;
 public class AccountDto extends BaseDto {
 
     private String username;
-    private Double account_balance;
+    private Double accountBalance;
 
     public String getUsername() {
         return username;
@@ -15,11 +15,11 @@ public class AccountDto extends BaseDto {
         this.username = username;
     }
 
-    public Double getAccount_balance() {
-        return account_balance;
+    public Double getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setAccount_balance(Double account_balance) {
-        this.account_balance = account_balance;
+    public void setAccountBalance(Double accountBalance) {
+        this.accountBalance = accountBalance;
     }
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class AccountEntity extends BaseEntity {
 
     private String username;
-    private Double account_balance;
+    private Double accountBalance;
 
     public String getUsername() {
         return username;
@@ -19,11 +19,11 @@ public class AccountEntity extends BaseEntity {
         this.username = username;
     }
 
-    public Double getAccount_balance() {
-        return account_balance;
+    public Double getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setAccount_balance(Double account_balance) {
-        this.account_balance = account_balance;
+    public void setAccountBalance(Double accountBalance) {
+        this.accountBalance = accountBalance;
     }
 }
